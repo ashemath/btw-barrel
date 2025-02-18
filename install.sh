@@ -1,14 +1,13 @@
 #!/bin/sh
 
 useradd browser
-apt install -y qt5dxcb-plugin
+apt install -y qt5dxcb-plugin python3-venv
 
 if [ -d ./venv ]; then
     echo "venv exists!"
 else
     echo "making venv now!";
     python3 -m venv venv
-    chown -R browser:browser venv
 fi
 
 if [ -e ./venv/bin/activate ]; then
