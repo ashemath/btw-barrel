@@ -8,6 +8,7 @@ if [ -d ./venv ]; then
 else
     echo "making venv now!";
     python3 -m venv venv
+    chown -R browser:browser venv
 fi
 
 if [ -e ./venv/bin/activate ]; then
@@ -29,6 +30,7 @@ if [ -z $LAUNCH_TEST ]; then
     mkdir /usr/local/bin/browser
     cp launch_browser.sh /usr/local/bin/
     cp browser.py /usr/local/bin/browser/
+    chown -R browser:browser venv
     cp -R venv /usr/local/bin/browser/
     chown -R browser:browser /usr/local/bin/browser
     chown browser:browser /usr/local/bin/launch_browser.sh
