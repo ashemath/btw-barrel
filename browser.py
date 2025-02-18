@@ -44,7 +44,6 @@ class Browser(QMainWindow):
                 match = True
                 #print("checking: ", domain):
                 print(domain, " is allowed")
-                break
         if not match:
             self.webEngineView.page().triggerAction(QWebEnginePage.Back)
             print("bounced for: ", url)
