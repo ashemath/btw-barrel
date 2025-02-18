@@ -10,8 +10,6 @@ else
     python3 -m venv venv
 fi
 
-chown -R browser:browser venv/
-
 if [ -e ./venv/bin/activate ]; then
     echo "Activating!"
     . venv/bin/activate
