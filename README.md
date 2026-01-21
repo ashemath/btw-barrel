@@ -29,6 +29,11 @@ access type situation work harder.
 `browser.py`: this is our simple "browser" application. To be lazily encrypted!
 `magic.py`: how we reverse the encryption.
 `barrel.py`: now you see it?
-`run_browser.sh`: now you don't!
+`run_browser.sh`: now you don't! The "script" kicks off the "browser" and supresses
+error messages. cause there's a lot!
 
-`run_browser.sh` 
+## Yes, you can lock down to Canvas
+
+Edit `browser.py` to point at your canvas instance. Test it before exposing to the
+masses. btw-barrel isn't a supported browser cause it's not a browser, so your
+mileage may vary.
