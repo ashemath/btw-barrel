@@ -1,43 +1,39 @@
 #!/bin/sh
 
-useradd browser
-apt install -y qt5dxcb-plugin python3-venv
+# Ensure dependencies
+pyqt5_check=$(dpkg -l | grep python3-pyqt5)
+pyqt5web_check=$(dpkg -l | grep python3-pyqt5.qtwebengine)
 
-if [ -d ./venv ]; then
-    echo "venv exists!"
-else
-    echo "making venv now!";
-    python3 -m venv venv
+if [ -z "$pyqt5_check" ]; then
+    echo "Installing pyqt5..."
+    apt-get install -y python3-pyqt5
 fi
 
-if [ -e ./venv/bin/activate ]; then
-    echo "Activating!"
-    . venv/bin/activate
-else
-    echo "Cannot activate!"
+if [ -z "$pyqt5web_check" ]; then
+    echo "Installing pyqt5 web-engine..."
+    apt-get install -y python3-pyqt5.qtwebengine
 fi
 
-if [ -e venv/lib/python3.11/site-packages/PyQt ]; then
-    echo "PyQt detected!"
-else
-    pip install -r requirements.txt
+# Install files
+if [ ! -d /usr/local/lib/barrel ]; then
+    echo "Creating local folder"
+    mkdir /usr/local/lib/barrel
 fi
 
-LAUNCH_TEST=$(which launch_browser.sh)
-
-if [ -z $LAUNCH_TEST ]; then
-    mkdir /usr/local/bin/browser
-    cp launch_browser.sh /usr/local/bin/
-    cp browser.py /usr/local/bin/browser/
-    chown -R browser:browser venv
-    cp -R venv /usr/local/bin/browser/
-    chown -R browser:browser /usr/local/bin/browser
-    chown browser:browser /usr/local/bin/launch_browser.sh
-    chmod -R 775 /usr/local/bin/browser
-    chmod -R g+s /usr/local/bin/browser
-    chmod a+rx /usr/local/bin/launch_browser.sh
-    chmod g+s /usr/local/bin/launch_browser.sh
-else
-    echo "Browser is already installed!"
+if [ ! -e /usr/local/bin/run_browser.sh ]; then
+	echo "Copying run script..."
+	cp ./run_browser.sh /usr/local/bin/ 
 fi
 
+if [ ! -e /usr/local/lib/barrel/magic.py ]; then
+    cp ./magic.py /usr/local/lib/barrel/
+fi
+
+if [ ! -e /usr/local/lib/barrel/barrel.py ]; then
+	cp ./barrel.py /usr/local/lib/barrel/
+fi
+
+if [ ! -e /usr/local/lib/barrel/barrel.payload ]; then
+	echo "Creating encoded browser payload..."
+	./obfuscate.py
+fi

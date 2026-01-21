@@ -1,30 +1,34 @@
 # btw-barrel
-PoC restricted web "browser" built with PyQt5.
-Could've done it in PyQt6, but I plan to use it with obscure desktop
-managers, so going with the older codebase.
 
-git clone and run `sudo ./install.sh`. The browser is owned by
-a `browser` user and has set guid enabled, so all users can launch the window with
-`launch_browser.sh`.
+Lock down access to a single website. No web browser
+needs to be installed. The "browser" exists as a consequence
+of a couple Python packages and an obfuscted script.
 
-A user without `sudo` will not be able to edit the script and adjust the `allow` list.
-Instead of installing a real web browser, install btw-barrel's `launch_browser.sh` and
-restrict access to exactly your target domains.
+If a user wants to figure out how to reverse the obfuscation
+instead of what they're supposed to be doing, we'll
+leave that as an exercise for the reader.
 
-Designed as a reaction to the frustrating experience of trying to setup IP filtering to
-restrict browsers to a certain enterprise LMS wed application.
+browser.py launches a little browser-like program that "pins"
+the user to a single URL. Downloading files works, but
+it's nothing like a regular web-browser. If a user tries to load
+a page anywhere that is not "allowed," it goes, but proceeds to go immediately
+"back".
 
-Trying to account for every domain was challenging, and there is not guarantee that the list
-will update fast enough. With this project, we monitor the page's URL instead of blocking
-packets on the IP layer.
+But Bill, the user can just copy the script and edit it!
+No, it's not that easy.
 
-The browser gets to grab files from all over the world, yet the user stays navigating on my
-allowed pages. The example is setup to force a user to browse wikipedia.org
+The install script copies the deobfuscation script and the obfuscated
+code to a readable directory.
 
-## Permissions wackiness
-I set a bunch of permissions on the browser script and a directory that holds the python and venv.
-The purpose behind this is to make it a little bit harder to defeat the system.
+A user could figured out how to run the deobfuscating script, but this
+would be hard to do without leaving a trail or being observed.
 
-I understand this is not a fool-proof system, but the idea is that I would deploy it in a monitored
-context, one where command history is going to be recorded. Fits some uses for me, but you'll
-want to look over this work and adapt it to your needs.
+Just trying to make deobfusction trickier for someone in a restricted-net-
+access type situation work harder.
+
+`browser.py`: this is our simple "browser" application. To be lazily encrypted!
+`magic.py`: how we reverse the encryption.
+`barrel.py`: now you see it?
+`run_browser.sh`: now you don't!
+
+`run_browser.sh` 

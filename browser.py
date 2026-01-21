@@ -1,13 +1,13 @@
 #!/bin/env python3
 
-import re,sys
+import re,sys,os
 from PyQt5.QtCore import QUrl, QDir, QFileInfo
 from PyQt5.QtWidgets import QFileDialog
 from time import sleep
 from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEnginePage, QWebEngineDownloadItem
 from PyQt5.QtWebEngineWidgets import QWebEngineProfile as profile
-
 from PyQt5.QtWidgets import QApplication, QVBoxLayout,QMainWindow, QWidget, QLineEdit
+
 
 class Browser(QMainWindow):
     def __init__(self):
@@ -19,8 +19,8 @@ class Browser(QMainWindow):
     def initUI(self,filters):
         profile.defaultProfile().downloadRequested.connect(self.download_file)
         self.webEngineView = QWebEngineView(self)
-        # self.webEngineView.setUrl(QUrl("https://$institution.instructure.com"))
         self.webEngineView.setUrl(QUrl("https://www.wikipedia.org"))
+        #self.webEngineView.setUrl(QUrl("https://$institution.instructure.com"))
         self.setWindowTitle('Web Browser')
         self.setGeometry(100, 100, 800, 600)
         self.filters = filters
