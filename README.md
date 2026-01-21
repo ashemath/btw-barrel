@@ -1,5 +1,9 @@
 # btw-barrel
 
+PoC for running a single "browser" window that's pinned to a given
+domain.
+
+## Idea
 Lock down access to a single website. No web browser
 needs to be installed. The "browser" exists as a consequence
 of a couple Python packages and an obfuscted script.
