@@ -27,8 +27,11 @@ Just trying to make deobfusction trickier for someone in a restricted-net-
 access type situation work harder.
 
 `browser.py`: this is our simple "browser" application. To be lazily encrypted!
+
 `magic.py`: how we reverse the encryption.
+
 `barrel.py`: now you see it?
+
 `run_browser.sh`: now you don't! The "script" kicks off the "browser" and supresses
 error messages. cause there's a lot!
 
